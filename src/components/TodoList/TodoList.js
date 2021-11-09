@@ -18,7 +18,7 @@ export default function TodoList(props) {
               todo={todo.text}
               done={todo.done}
               changeDone={props.changeDone}
-              currentUser={props.currentUser}
+              deleteTask={props.deleteTask}
             />
           ))}
         {done.length > 0 &&
@@ -29,7 +29,7 @@ export default function TodoList(props) {
               todo={todo.text}
               done={todo.done}
               changeDone={props.changeDone}
-              currentUser={props.currentUser}
+              deleteTask={props.deleteTask}
             />
           ))}
       </ul>

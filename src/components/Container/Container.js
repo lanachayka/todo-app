@@ -13,6 +13,7 @@ export default function Container(props) {
             addTask={props.addTask}
             changeDone={props.changeDone}
             currentUser={props.currentUser}
+            deleteTask={props.deleteTask}
           />
         )}
       </div>

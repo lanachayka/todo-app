@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { addTaskAC, changeDoneAC, checkUserAC } from "../../redux/todoReducer";
+import { addTaskAC, changeDoneAC, checkUserAC, deleteTaskAC } from "../../redux/todoReducer";
 import Container from './Container'
 
 const mapStateToProps = (state) => {
@@ -17,8 +17,11 @@ const mapDispatchToProps = (dispatch) => {
     addTask: (newTask) => {
       dispatch(addTaskAC(newTask));
     },
-    changeDone: (idUser, idTask, done) => {
-      dispatch(changeDoneAC(idUser, idTask, done));
+    changeDone: (idTask, done) => {
+      dispatch(changeDoneAC(idTask, done));
+    },
+    deleteTask: (idTask) => {
+      dispatch(deleteTaskAC(idTask));
     }
   };
 };

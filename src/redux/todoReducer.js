@@ -1,6 +1,7 @@
 const CHECK_USER = "CHECK-USER";
 const ADD_TASK = "ADD-TASK";
 const CHANGE_DONE = "CHANGE-DONE";
+const DELETE_TASK = "DELETE-TASK"
 
 const initialState = {
   users: [
@@ -57,11 +58,25 @@ const todoReducer = (state = initialState, action) => {
     }
     case CHANGE_DONE: {
       const stateCopy = JSON.parse(JSON.stringify(state));
-      stateCopy.users.filter(u => u.id === action.idUser)[0].todoList.forEach(task => {
-        if (task.id === action.idTask) {
-          task.done = action.done
+      stateCopy.users
+        .filter((u) => u.id === stateCopy.currentUser)[0]
+        .todoList.forEach((task) => {
+          if (task.id === action.idTask) {
+            task.done = action.done;
+          }
+        });
+      return stateCopy;
+    }
+    case DELETE_TASK: {
+      const stateCopy = JSON.parse(JSON.stringify(state));
+      let index = 0;
+      stateCopy.users.map((u, ind) => {
+        if (u.id === stateCopy.currentUser) {
+          index = ind;
         }
-      })
+      });
+      const filtred = stateCopy.users[index].todoList.filter(task => task.id !== action.idTask);
+      stateCopy.users[index].todoList = filtred;
       return stateCopy;
     }
     default:
@@ -79,11 +94,15 @@ export const addTaskAC = (newTask) => ({
   newTask: newTask,
 });
 
-export const changeDoneAC = (idUser, idTask, done) => ({
+export const changeDoneAC = (idTask, done) => ({
   type: CHANGE_DONE,
-  idUser: idUser,
   idTask: idTask,
   done: done,
+});
+
+export const deleteTaskAC = (idTask) => ({
+  type: DELETE_TASK,
+  idTask: idTask,
 });
 
 export default todoReducer;
