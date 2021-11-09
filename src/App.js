@@ -1,8 +1,10 @@
 import './App.css';
+import ConnectContainer from "./components/Container/ConnectContainer";
 
 function App() {
   return (
-    <div>
+    <div className="app-wrapper">
+      <ConnectContainer />
     </div>
   );
 }
