@@ -4,7 +4,9 @@ import st from "./AddNewTask.module.css";
 export default function AddNewTask(props) {
   const inputRef = React.createRef();
   const addnewTask = () => {
-    props.addTask(inputRef.current.value);
+    if (inputRef.current.value.length > 0) {
+       props.addTask(inputRef.current.value);
+    }
     inputRef.current.value = "";
   }
     return (

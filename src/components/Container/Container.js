@@ -11,6 +11,8 @@ export default function Container(props) {
           <TodoList
             user={props.users.filter((u) => u.id === props.currentUser)}
             addTask={props.addTask}
+            changeDone={props.changeDone}
+            currentUser={props.currentUser}
           />
         )}
       </div>
