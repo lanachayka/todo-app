@@ -1,4 +1,5 @@
 const CHECK_USER = "CHECK-USER";
+const ADD_TASK = "ADD-TASK";
 
 const initialState = {
   users: [
@@ -7,9 +8,9 @@ const initialState = {
       name: "user1",
       email: "user1@example.com",
       todoList: [
-        "wash the car",
-        "to order spare parts",
-        "to buy a gift for Bob",
+        { id: 11, text: "wash the car" },
+        { id: 12, text: "to order spare parts" },
+        { id: 13, text: "to buy a gift for Bob" },
       ],
     },
     {
@@ -17,9 +18,9 @@ const initialState = {
       name: "user2",
       email: "user2@example.com",
       todoList: [
-        "write an article",
-        "extend the pass to the library",
-        "to buy books according to the list",
+        { id: 21, text: "write an article" },
+        { id: 22, text: "extend the pass to the library" },
+        { id: 23, text: "to buy books according to the list" },
       ],
     },
   ],
@@ -40,6 +41,15 @@ const todoReducer = (state = initialState, action) => {
         ? { ...state, currentUser: result[0] }
         : { ...state, currentUser: "" };
     }
+    case ADD_TASK: {
+      const stateCopy = JSON.parse(JSON.stringify(state));
+      stateCopy.users.forEach(u => {
+        if (u.id === stateCopy.currentUser) {
+          u.todoList.push({ id: u.todoList[u.todoList.length-1].id+1, text: action.newTask });
+        }
+      });
+      return stateCopy;
+    }
     default:
       return state;
   }
@@ -48,6 +58,11 @@ const todoReducer = (state = initialState, action) => {
 export const checkUserAC = (userEmail) => ({
   type: CHECK_USER,
   userEmail: userEmail,
+});
+
+export const addTaskAC = (newTask) => ({
+  type: ADD_TASK,
+  newTask: newTask,
 });
 
 export default todoReducer;

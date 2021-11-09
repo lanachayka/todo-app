@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { checkUserAC } from "../../redux/todoReducer";
+import { addTaskAC, checkUserAC } from "../../redux/todoReducer";
 import Container from './Container'
 
 const mapStateToProps = (state) => {
@@ -14,6 +14,9 @@ const mapDispatchToProps = (dispatch) => {
     checkUser: (userEmail) => {
       dispatch(checkUserAC(userEmail));
     },
+    addTask: (newTask) => {
+      dispatch(addTaskAC(newTask));
+    }
   };
 };
 
