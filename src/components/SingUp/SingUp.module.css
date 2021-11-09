@@ -7,7 +7,7 @@
 
 .title {
     font-size: 50px;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 
 .input {
@@ -27,4 +27,10 @@
 .btn:hover {
     cursor: pointer;
     background-color: rgb(96, 96, 240);
+}
+
+.errorText {
+    color: red;
+    font-size: 16px;
+    margin-bottom: 20px;
 }

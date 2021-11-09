@@ -6,7 +6,7 @@ export default function Container(props) {
   return (
     <div>
       {props.currentUser === "" ? (
-        <SingUp checkUser={props.checkUser} />
+        <SingUp checkUser={props.checkUser} currentUser={props.currentUser} />
       ) : (
         <TodoList />
       )}
