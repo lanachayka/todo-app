@@ -4,8 +4,16 @@ import deleteIcon from "./delete_black_24dp.svg";
 import Modal from "../Modal/Modal";
 import DeleteTask from "../DeleteTask/DeleteTask";
 
-export default function TodoItem(props) {
-  const onDoneChange = (e) => {
+type TodoItemProps = {
+  changeDone: (idTask: number, done: boolean) => void,
+  id: number,
+  todo: string,
+  done: boolean,
+  deleteTask: (idTask: number) => void,
+}
+
+const TodoItem: React.FC<TodoItemProps> = (props) => {
+  const onDoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     props.changeDone(props.id, e.target.checked);
   };
   const [modalActive, setModalActive] = useState(false);
@@ -33,3 +41,5 @@ export default function TodoItem(props) {
     </div>
   );
 }
+
+export default TodoItem

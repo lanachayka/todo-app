@@ -1,9 +1,14 @@
+import {
+  InitialStateType, ActionsType,
+  checkUserActionType, addTaskActionType,
+  changeDoneActionType, deleteTaskActionType
+} from './types';
 const CHECK_USER = "CHECK-USER";
 const ADD_TASK = "ADD-TASK";
 const CHANGE_DONE = "CHANGE-DONE";
 const DELETE_TASK = "DELETE-TASK"
 
-const initialState = {
+const initialState: InitialStateType = {
   users: [
     {
       id: 1,
@@ -26,14 +31,14 @@ const initialState = {
       ],
     },
   ],
-  currentUser: "",
+  currentUser: "" as const,
 };
 
-const todoReducer = (state = initialState, action) => {
+const todoReducer = (state = initialState, action: ActionsType): InitialStateType => {
   switch (action.type) {
     case CHECK_USER: {
       const stateCopy = { ...state, users: state.users };
-      const result = [];
+      const result: number[] = [] ;
       stateCopy.users.forEach((u) => {
         if (u.email === action.userEmail) {
           result.push(u.id);
@@ -44,7 +49,7 @@ const todoReducer = (state = initialState, action) => {
         : { ...state, currentUser: "" };
     }
     case ADD_TASK: {
-      const stateCopy = JSON.parse(JSON.stringify(state));
+      const stateCopy: InitialStateType = JSON.parse(JSON.stringify(state));
       stateCopy.users.forEach(u => {
         if (u.id === stateCopy.currentUser) {
           u.todoList.push({
@@ -57,7 +62,7 @@ const todoReducer = (state = initialState, action) => {
       return stateCopy;
     }
     case CHANGE_DONE: {
-      const stateCopy = JSON.parse(JSON.stringify(state));
+      const stateCopy: InitialStateType = JSON.parse(JSON.stringify(state));
       stateCopy.users
         .filter((u) => u.id === stateCopy.currentUser)[0]
         .todoList.forEach((task) => {
@@ -68,7 +73,7 @@ const todoReducer = (state = initialState, action) => {
       return stateCopy;
     }
     case DELETE_TASK: {
-      const stateCopy = JSON.parse(JSON.stringify(state));
+      const stateCopy: InitialStateType = JSON.parse(JSON.stringify(state));
       let index = 0;
       stateCopy.users.map((u, ind) => {
         if (u.id === stateCopy.currentUser) {
@@ -84,24 +89,24 @@ const todoReducer = (state = initialState, action) => {
   }
 };
 
-export const checkUserAC = (userEmail) => ({
-  type: CHECK_USER,
+export const checkUserAC = (userEmail: string): checkUserActionType => ({
+  type: "CHECK-USER" as const,
   userEmail: userEmail,
 });
 
-export const addTaskAC = (newTask) => ({
-  type: ADD_TASK,
+export const addTaskAC = (newTask: string): addTaskActionType => ({
+  type: "ADD-TASK" as const,
   newTask: newTask,
 });
 
-export const changeDoneAC = (idTask, done) => ({
-  type: CHANGE_DONE,
+export const changeDoneAC = (idTask: number, done: boolean): changeDoneActionType => ({
+  type: "CHANGE-DONE" as const,
   idTask: idTask,
   done: done,
 });
 
-export const deleteTaskAC = (idTask) => ({
-  type: DELETE_TASK,
+export const deleteTaskAC = (idTask: number): deleteTaskActionType => ({
+  type: "DELETE-TASK" as const,
   idTask: idTask,
 });
 

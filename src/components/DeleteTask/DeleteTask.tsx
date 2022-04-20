@@ -1,7 +1,13 @@
 import React from "react";
 import st from "./DeleteTask.module.css";
 
-export default function DeleteTask(props) {
+type DeleteTaskProps = {
+  deleteTask: (idTask: number) => void,
+  cancel: () => void,
+  id: number
+}
+
+const DeleteTask: React.FC<DeleteTaskProps> = (props) => {
   const onDelete = () => {
     props.deleteTask(props.id);
     props.cancel();
@@ -20,3 +26,5 @@ export default function DeleteTask(props) {
     </div>
   );
 }
+
+export default DeleteTask

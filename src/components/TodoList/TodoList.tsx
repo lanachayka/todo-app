@@ -1,9 +1,18 @@
 import React from "react";
+import { UserType } from "../../redux/types";
 import AddNewTask from "../AddNewTask/AddNewTask";
 import TodoItem from "../TodoItem/TodoItem";
 import st from "./TodoList.module.css";
 
-export default function TodoList(props) {
+type TodoListProps = {
+  user: UserType[],
+  changeDone: (idTask: number, done: boolean) => void,
+  deleteTask: (idTask: number) => void,
+  addTask: (newTask: string) => void,
+  currentUser: number | ""
+}
+
+const TodoList: React.FC<TodoListProps> = (props) => {
   const notDone = props.user[0].todoList.filter((task) => !task.done);
   const done = props.user[0].todoList.filter((task) => task.done);
   return (
@@ -37,3 +46,5 @@ export default function TodoList(props) {
     </div>
   );
 }
+
+export default TodoList

@@ -1,13 +1,17 @@
 import React from 'react'
 import st from "./AddNewTask.module.css";
 
-export default function AddNewTask(props) {
-  const inputRef = React.createRef();
+type AddNewTaskProps = {
+  addTask: (newTask: string) => void,
+}
+
+const AddNewTask: React.FC<AddNewTaskProps> = (props) => {
+  const inputRef: React.RefObject<HTMLInputElement> = React.createRef();
   const addnewTask = () => {
-    if (inputRef.current.value.length > 0) {
-       props.addTask(inputRef.current.value);
+    if (inputRef.current?.value && inputRef.current.value.length > 0) {
+      props.addTask(inputRef.current.value);
+      inputRef.current.value = ""
     }
-    inputRef.current.value = "";
   }
     return (
       <div className={st.wrapper}>
@@ -22,3 +26,5 @@ export default function AddNewTask(props) {
       </div>
     );
 }
+
+export default AddNewTask

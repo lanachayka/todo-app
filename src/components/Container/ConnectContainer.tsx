@@ -1,26 +1,27 @@
 import { connect } from "react-redux";
+import { AppDispatch, RootState } from "../../redux/store";
 import { addTaskAC, changeDoneAC, checkUserAC, deleteTaskAC } from "../../redux/todoReducer";
 import Container from './Container'
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: RootState) => {
   return {
     users: state.todo.users,
     currentUser: state.todo.currentUser
   };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch: AppDispatch) => {
   return {
-    checkUser: (userEmail) => {
+    checkUser: (userEmail: string) => {
       dispatch(checkUserAC(userEmail));
     },
-    addTask: (newTask) => {
+    addTask: (newTask: string) => {
       dispatch(addTaskAC(newTask));
     },
-    changeDone: (idTask, done) => {
+    changeDone: (idTask: number, done: boolean) => {
       dispatch(changeDoneAC(idTask, done));
     },
-    deleteTask: (idTask) => {
+    deleteTask: (idTask: number) => {
       dispatch(deleteTaskAC(idTask));
     }
   };

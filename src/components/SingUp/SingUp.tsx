@@ -1,13 +1,20 @@
 import React, { useState } from "react";
 import st from "./SingUp.module.css";
 
-export default function SingUp(props) {
+type SingUpProps = {
+  checkUser: (userEmail: string) => void,
+  currentUser: number | ""
+}
+
+const SingUp: React.FC<SingUpProps> = (props) => {
   const [errorText, setErrorText] = useState("");
-  const inputRef = React.createRef();
+  const inputRef: React.RefObject<HTMLInputElement> = React.createRef();
   const onCheckUser = () => {
-    const email = inputRef.current.value
-    props.checkUser(email);
-    if (props.currentUser.length === 0) {
+    const email = inputRef.current?.value
+    if (email) {
+      props.checkUser(email);
+    }
+    if (props.currentUser === "") {
       setErrorText('Something does not look right. Please check the email and try again')
     }
   };
@@ -27,3 +34,5 @@ export default function SingUp(props) {
     </div>
   );
 }
+
+export default SingUp
